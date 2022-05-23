@@ -39,3 +39,7 @@ Route::put('/sousCategorie/{id}',[SousCategorieController::class,'update']);
 
 Route::apiResource('produits', ProduitController::class);
 Route::post('modifierProduit/{id}', [ProduitController::class, 'modifierProduit']);
+Route::post('ajouterFavoris', [ProduitController::class, 'ajouterFavoris']);
+Route::delete('supprimerFavoris/{idProduit}/{idUser}', [ProduitController::class, 'supprimerFavoris']);
+Route::get('favProduits/{id}', [ProduitController::class,'favProduits']);
+Route::get('favUsers/{id}', [UserController::class,'favUsers']);

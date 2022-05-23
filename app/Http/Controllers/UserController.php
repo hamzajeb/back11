@@ -67,4 +67,9 @@ class UserController extends Controller
             'message' => 'LogOut Done ',
         ]);
     }
+
+    public function favUsers($id){
+        $favorites = User::with('fav')->get()->find($id);
+        return  response()->json($favorites);
+    }
 }

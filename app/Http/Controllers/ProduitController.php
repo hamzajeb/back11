@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Produit;
+use App\Models\favoris;
 use App\Models\SousCategorie;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class ProduitController extends Controller
     public function index()
     {
         //
-        $produits = Produit::all();
+        $produits = Produit::with('favorites')->get();
         // return new contactCollection($contacts);
         return response()->json($produits);
     }
@@ -177,4 +178,33 @@ class ProduitController extends Controller
         ]);
 
     }
+
+    public function ajouterFavoris(Request $request){
+        $favoris=Favoris::create([
+            'user_id'=> $request->user_id,
+            'produit_id'=> $request->produit_id,
+
+        ]);
+        return response()->json([
+            'message' => 'ajouter au Favoris',
+            'favoris'=>$favoris
+        ]);
+    }
+
+    public function supprimerFavoris($idProduit,$idUser){
+        $favoris=favoris::where([
+            'produit_id' => $idProduit,
+            'user_id' => $idUser,
+        ]);
+        $favoris->delete();
+        return response()->json([
+            'message'=>"supprimer de favoris"
+        ]);
+    }
+
+    public function favProduits($id){
+        $favorites = Produit::with('favorites')->get()->find($id);
+        return  response()->json($favorites);
+    }
+
 }

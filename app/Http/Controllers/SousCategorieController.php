@@ -127,6 +127,7 @@ class SousCategorieController extends Controller
         $souscategorie = SousCategorie::with('Produit')->get()->find($id);
         return  response()->json($souscategorie);
     }
+    // with('favorites')->get()
 
     
 

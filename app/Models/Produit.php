@@ -25,4 +25,7 @@ class Produit extends Model
         'sous_categorie',
         'chrono_h',
     ];
+    public function favorites(){
+        return $this->hasMany(favoris::class);
+    }
 }
